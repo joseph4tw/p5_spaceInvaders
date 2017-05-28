@@ -1,16 +1,28 @@
 var game;
 var ship;
+var shipImage;
 var invaders = [];
 var invadersKilled = 0;
 var initialInvaders = 10;
 var invadersMaxSpeed = 10;
 var bullets = [];
 
+function preload() {
+    shipImage = loadImage("images/spaceship.png");
+}
+
+function reset() {
+    invaders = [];
+    invadersKilled = 0;
+    bullets = [];
+    setup();
+}
+
 function setup() {
     var canvas = createCanvas(640, 480);
     canvas.parent("canvas");
 
-    ship = new Ship();
+    ship = new Ship(shipImage);
     
     for (var i = 0; i < initialInvaders; i++) {
         invaders.push(new Invader(i * 50 + 50, 50));

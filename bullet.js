@@ -2,11 +2,11 @@ function Bullet(ship) {
     this.x = ship.x;
     this.y = ship.y;
     this.speed = 7;
-    this.r = ship.width / 2 - 1;
+    this.r = ship.width / 8;
 
     this.show = function() {
         fill(0);
-        ellipse(this.x, this.y, this.r, this.r);
+        ellipse(this.x, this.y, this.r * 2, this.r * 2);
     }
 
     this.move = function() {

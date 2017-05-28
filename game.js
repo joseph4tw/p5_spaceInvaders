@@ -11,6 +11,10 @@ function Game(ship, bullets) {
     }
 
     this.keyPressed = function() {
+        if (key === "R") {
+            reset();
+        }
+        
         if (key === " ") {
             bullets.push(new Bullet(ship));
         }
