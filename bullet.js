@@ -5,7 +5,7 @@ function Bullet(ship) {
     this.r = ship.width / 8;
 
     this.show = function() {
-        fill(0);
+        fill(255);
         ellipse(this.x, this.y, this.r * 2, this.r * 2);
     }
 
@@ -15,8 +15,9 @@ function Bullet(ship) {
 
     this.hits = function(invader) {
         var d = dist(this.x, this.y, invader.x, invader.y);
+        var invaderHitBox = Math.max(invader.width, invader.height) / 2;
         
-        if (d < this.r + invader.r) {
+        if (d < this.r + invaderHitBox) {
             return true;
         }
         

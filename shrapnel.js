@@ -6,7 +6,8 @@ function Shrapnel(r, x, y, angle) {
     this.speed = 10;
     
     this.show = function() {
-        fill(0);
+        noStroke();
+        fill(255);
         ellipse(this.x, this.y, this.r * 2, this.r * 2);
     }
 

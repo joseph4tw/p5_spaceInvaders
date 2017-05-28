@@ -1,6 +1,12 @@
 var game;
 var ship;
+var background1;
+var background2;
+var backgroundImage1;
+var backgroundImage2;
+var backgroundYIncrement = 0.2;
 var shipImage;
+var invadersImage;
 var invaders = [];
 var invadersKilled = 0;
 var initialInvaders = 10;
@@ -8,7 +14,11 @@ var invadersMaxSpeed = 10;
 var bullets = [];
 
 function preload() {
-    shipImage = loadImage("images/spaceship.png");
+    backgroundImage1 = loadImage("images/background.png");
+    backgroundImage2 = loadImage("images/background.png");
+
+    shipImage = loadImage("images/spaceship_white.png");
+    invadersImage = loadImage("images/alien0_red.png");
 }
 
 function reset() {
@@ -22,17 +32,34 @@ function setup() {
     var canvas = createCanvas(640, 480);
     canvas.parent("canvas");
 
+    background1 = new Background(backgroundImage1, width / 2, height / 2, width, height);
+
+    var background2StartingY = -height / 2;
+    background2 = new Background(backgroundImage2, width / 2, background2StartingY, width, height);
+
     ship = new Ship(shipImage);
     
     for (var i = 0; i < initialInvaders; i++) {
-        invaders.push(new Invader(i * 50 + 50, 50));
+        invaders.push(new Invader(i * 50 + 50, 50, invadersImage.width, invadersImage.height));
     }
 
     game = new Game(ship, bullets);
 }
 
 function draw() {
-    background(150);
+    background1.y += backgroundYIncrement;
+    background2.y += backgroundYIncrement;
+
+    image(background1.img, background1.x, background1.y, background1.width, background1.height);
+    image(background2.img, background2.x, background2.y, background2.width, background2.height);
+
+    if (background1.y >= height * 1.5) {
+        // move background back to top
+        background1.y = -height / 2;
+    } else if (background2.y >= height * 1.5) {
+        // move background back to top
+        background2.y = -height / 2;
+    }
 
     game.showScore(invadersKilled);
 
@@ -72,8 +99,8 @@ function processInvaders() {
         invaders[i].move();
         invaders[i].show();
 
-        if (invaders[i].x + invaders[i].r >= width
-            || invaders[i].x - invaders[i].r <= 0) {
+        if (invaders[i].x + invaders[i].width / 2 >= width
+            || invaders[i].x - invaders[i].width / 2 <= 0) {
                 edge = true;
         }
 
@@ -83,7 +110,7 @@ function processInvaders() {
             return;
         }
 
-        if (invaders[i].y > height + invaders[i].r) {
+        if (invaders[i].y + invaders[i].img.height / 2 > height) {
             invaders.splice(i, 1);
             game.isLost = true;
             return;
