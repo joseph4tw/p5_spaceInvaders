@@ -49,7 +49,6 @@ function draw() {
         for (var i = 0; i < invaders.length; i++) {
             invaders[i].show();
         }
-
         ship.show();
         
         return;
@@ -80,6 +79,7 @@ function processInvaders() {
 
         if (invaders[i].hits(ship)) {
             game.isLost = true;
+            ship.explode();
             return;
         }
 
