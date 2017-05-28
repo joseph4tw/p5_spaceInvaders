@@ -8,3 +8,9 @@ I'm very new to p5.js so I figured this was a fun way to practice.
 - Invaders have 3 hits to kill
 - Invaders move faster as you kill more
 - You lose if an invader hits you or they pass you and you don't kill them
+
+## Example
+
+Here's a page where you can play the game.
+
+[Space Invaders](https://joseph4tw.github.io/p5_spaceInvaders/)

@@ -7,7 +7,9 @@ var invadersMaxSpeed = 10;
 var bullets = [];
 
 function setup() {
-    createCanvas(640, 480);
+    var canvas = createCanvas(640, 480);
+    canvas.parent("canvas");
+
     ship = new Ship();
     
     for (var i = 0; i < initialInvaders; i++) {
@@ -20,9 +22,12 @@ function setup() {
 function draw() {
     background(150);
 
+    game.showScore(invadersKilled);
+
     if (game.isWon) {
         game.showWonScreen();
         processShip();
+        processBullets();
         return;
     }
 

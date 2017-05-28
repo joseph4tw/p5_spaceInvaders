@@ -22,15 +22,30 @@ function Game(ship, bullets) {
         }
     }
 
-    this.showWonScreen = function() {
-        textSize(32);
+    this.showScore = function(score) {
+        var textHeight = 18;
+        textSize(textHeight);
+        var scoreText = "Score: " + score;
+
         fill(255);
-        text("You won!", width / 2, height / 2);
+        text(scoreText, 10, 20);
+    }
+
+    this.showWonScreen = function() {
+        var textHeight = 32;
+        textSize(textHeight);
+        var s = "You won!";
+
+        fill(255);
+        text(s, width / 2 - textWidth(s) / 2, height / 2 - textHeight / 2);
     }
 
     this.showLostScreen = function() {
-        textSize(32);
+        var textHeight = 32;
+        textSize(textHeight);
+        var s = "Game Over";
+        
         fill(200, 0, 0);
-        text("Game Over", width / 2, height / 2);
+        text(s, width / 2 - textWidth(s) / 2, height / 2 - textHeight / 2);
     }
 }
