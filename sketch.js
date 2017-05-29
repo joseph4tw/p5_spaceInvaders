@@ -12,6 +12,7 @@ var invadersKilled = 0;
 var initialInvaders = 10;
 var invadersMaxSpeed = 10;
 var bullets = [];
+var resetButton;
 
 function preload() {
     backgroundImage1 = loadImage("images/background.png");
@@ -44,6 +45,12 @@ function setup() {
     }
 
     game = new Game(ship, bullets);
+
+    if (!resetButton) {
+        resetButton = createButton('Reset');
+        resetButton.parent("reset");
+        resetButton.mousePressed(reset);
+    }
 }
 
 function draw() {
@@ -158,6 +165,10 @@ function keyReleased() {
     game.keyReleased();
 }
 
-function keyPressed() {
-    game.keyPressed();
+function keyPressed(e) {
+    game.keyPressed(e);
+}
+
+function mousePressed() {
+    game.mousePressed();
 }

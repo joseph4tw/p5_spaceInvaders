@@ -24,6 +24,13 @@ function Ship(img) {
     }
 
     this.move = function() {
+        // prefer mouse if within screen
+        if (this.width / 2 <= mouseX && mouseX <= width - this.width / 2
+            && 0 < mouseY && mouseY <= height) {
+                this.x = mouseX;
+                return;
+        }
+
         var tempX = this.x + this.xDirection * 5;
 
         if (tempX - this.width / 2 < 0 || width < tempX + this.width / 2) {

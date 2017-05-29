@@ -4,19 +4,27 @@ function Game(ship, bullets) {
     this.ship = ship;
     this.bullets = bullets;
 
+    this.mousePressed = function() {
+        if (0 < mouseX && mouseX <= width
+            && 0 < mouseY && mouseY <= height) {
+                bullets.push(new Bullet(ship));
+        }
+    }
+
     this.keyReleased = function() {
         if (key != " ") {
             ship.setDirection(0);
         }
     }
 
-    this.keyPressed = function() {
+    this.keyPressed = function(e) {
         if (key === "R") {
             reset();
         }
         
         if (key === " ") {
             bullets.push(new Bullet(ship));
+            e.preventDefault();
         }
         
         if (keyCode === RIGHT_ARROW) {
@@ -49,7 +57,7 @@ function Game(ship, bullets) {
         textSize(textHeight);
         var s = "Game Over";
         
-        fill(200, 0, 0);
+        fill(255);
         text(s, width / 2 - textWidth(s) / 2, height / 2 - textHeight / 2);
     }
 }
