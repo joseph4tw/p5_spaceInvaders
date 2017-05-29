@@ -13,8 +13,18 @@ var initialInvaders = 10;
 var invadersMaxSpeed = 10;
 var bullets = [];
 var resetButton;
+var soundButton;
+var sounds;
 
 function preload() {
+    sounds = new Sounds();
+    sounds.explosion = loadSound("sounds/explosion.mp3");
+    sounds.invaderHit = loadSound("sounds/invaderHit.mp3");
+    sounds.invaderDie = loadSound("sounds/invaderDie.mp3");
+    sounds.bullet = loadSound("sounds/bullet.mp3");
+    sounds.gameWon = loadSound("sounds/gameWon.mp3");
+    sounds.gameLost = loadSound("sounds/gameLost.mp3");
+
     backgroundImage1 = loadImage("images/background.png");
     backgroundImage2 = loadImage("images/background.png");
 
@@ -44,12 +54,18 @@ function setup() {
         invaders.push(new Invader(i * 50 + 50, 50, invadersImage.width, invadersImage.height));
     }
 
-    game = new Game(ship, bullets);
+    game = new Game(ship, bullets, sounds);
 
     if (!resetButton) {
         resetButton = createButton('Reset');
         resetButton.parent("reset");
         resetButton.mousePressed(reset);
+    }
+
+    if (!soundButton) {
+        soundButton = createButton("Sound On");
+        soundButton.parent("sound");
+        soundButton.mousePressed(toggleSound);
     }
 }
 
@@ -113,6 +129,7 @@ function processInvaders() {
 
         if (invaders[i].hits(ship)) {
             game.isLost = true;
+            game.playSoundExplosion();
             ship.explode();
             return;
         }
@@ -120,6 +137,7 @@ function processInvaders() {
         if (invaders[i].y + invaders[i].img.height / 2 > height) {
             invaders.splice(i, 1);
             game.isLost = true;
+            game.playSoundGameLost();
             return;
         }
     }
@@ -142,13 +160,19 @@ function processBullets() {
             if (bullets[i].hits(invaders[j])) {
                 invaders[j].hit();
                 
-                if (invaders[j].life < 1) {
+                if (invaders[j].life >= 1) {
+                    game.playSoundInvaderHit();
+                } else {
                     invaders.splice(j, 1);
                     invadersKilled++;
+                    game.playSoundInvaderDie();
+
                     if (invaders.length == 0) {
                         game.isWon = true;
+                        game.playSoundGameWon();
                     }
                 }
+
                 hitInvader = true;
                 continue;
             }
@@ -171,4 +195,8 @@ function keyPressed(e) {
 
 function mousePressed() {
     game.mousePressed();
+}
+
+function toggleSound() {
+    game.toggleSound();
 }

@@ -17,10 +17,6 @@ function Ship(img) {
 
         imageMode(CENTER);
         image(this.img, this.x, this.y);
-
-        //textSize(14);
-        //fill(255);
-        //text("ShipX: " + this.x + " ShipY: " + this.y, 10, height - 10);
     }
 
     this.move = function() {
