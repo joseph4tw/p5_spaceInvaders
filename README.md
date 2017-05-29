@@ -7,6 +7,8 @@ I'm very new to p5.js so I figured this was a fun way to practice.
 ## Features
 - Invaders have 3 hits to kill
 - Invaders move faster as you kill more
+- Invaders get smaller as they lose life
+- You can use the mouse or keyboard for game play
 - You lose if an invader hits you or they pass you and you don't kill them
 
 ## Example
